@@ -19,3 +19,6 @@ Made with
 <p>- User-friendly web interface for inputting data and viewing generated meal plans.</p>
 
 ![Showcase](https://img.shields.io/badge/-Showcase-9B59B6?style=flat)
+
+![ezgif-2-85a423badf](https://github.com/BennLL/Nutritional-Meal-Plan-Suggester/assets/110274203/879ae77d-3c43-4302-a754-04bca6668e7b)
+
