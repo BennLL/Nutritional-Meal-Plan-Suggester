@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Meal Plan Suggestion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: antiquewhite;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid black;
+        }
+
+        h3 {
+            border-bottom: 3px solid black;
+        }
+
+        #chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for labels */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Style for textareas */
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            /* Allow vertical resizing */
+        }
+
+        /* Style for select dropdown */
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        /* Style for all inputs (including text inputs) */
+        input,
+        select,
+        textarea {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Optional: Add some spacing around the form */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .choices {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Meal Plan Suggestion</h1>
+    <div class="choices">
+        <div>
+            <label for="age">Set the age: </label>
+            <input type="number" id="age" name="age">
+        </div>
+        <div>
+            <label for="gender">Set the gender: </label>
+            <select id="gender" name="gender">
+                <option value="undisclosed">Undisclosed</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div>
+            <label for="height-feet">Set the height (Feet): </label>
+            <input type="number" id="height-feet" name="height-feet" placeholder="Feet">
+        </div>
+        <div>
+            <label for="height-inches">Set the height (Inches): </label>
+            <input type="number" id="height-inches" name="height-inches" placeholder="Inches">
+        </div>
+
+        <div>
+            <label for="weight">Set the weight (LBs): </label>
+            <input type="number" id="weight" name="weight">
+        </div>
+
+        <div>
+            <label for="activity">What is your current level of physical activity?</label>
+            <select id="activity" name="activity">
+                <option value="sedentary">Sedentary</option>
+                <option value="light-activity">Light</option>
+                <option value="moderate-activity">Moderate</option>
+                <option value="heavy-activity">Heavy</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="meals">How many meals do you prefer to have in a day? </label>
+            <input type="number" id="meals" name="meals" placeholder="Enter a number">
+        </div>
+
+        <div>
+            <label for="snacks">How many snacks do you prefer to have in a day? </label>
+            <input type="input" id="snacks" name="snacks" placeholder="Enter a number">
+        </div>
+    </div>
+
+    <div>
+        <label for="cuisines">What are some of the cuisines you enjoy?</label>
+        <textarea id="cuisines" name="cuisines" rows="2" cols="50"
+            placeholder="List them, Ex. Chinese, Greek, Japanese"></textarea>
+    </div>
+
+    <div>
+        <label for="restrictions">Do you have any specific dietary restrictions or food allergies?</label>
+        <textarea id="restrictions" name="restrictions" rows="2" cols="50"
+            placeholder="List them, Ex. I cannot eat red meat, I am allergic to nuts"></textarea>
+    </div>
+
+    <div>
+        <label for="dislike">Are there any specific foods you dislike or prefer to avoid? </label>
+        <textarea id="dislike" name="dislike" rows="2" cols="50" placeholder="List them, Ex. beef, pork"></textarea>
+    </div>
+
+    <div>
+        <label for="goals">What are your primary health goals (e.g., improve energy levels, build muscle, manage a
+            medical
+            condition)? </label>
+        <textarea id="goals" name="goals" rows="4" cols="50"
+            placeholder="List them, Ex. Gain muscle, Lose weight"></textarea>
+    </div>
+
+
+    <br>
+    <button onclick="sendMessage()">Request a Meal Plan</button>
+    <br><br>
+    <h3>Result</h3>
+    <div id="chat-container"></div>
+
+    <script>
+
+        function displayMessage(message) {
+            var chatContainer = document.getElementById("chat-container");
+            while (chatContainer.firstChild) {
+                chatContainer.removeChild(chatContainer.firstChild);
+            }
+            var chatMessage = document.createElement("div");
+            chatMessage.textContent = message;
+            chatContainer.appendChild(chatMessage);
+
+            var lineBreak = document.createElement("br");
+            chatContainer.appendChild(lineBreak);
+
+        }
+
+        function sendMessage() {
+            displayMessage("Generating result, this might take some time...");
+            var userAge = document.getElementById("age").value;
+            var userGender = document.getElementById("gender").value;
+            var userHeightFeet = document.getElementById("height-feet").value;
+            var userHeightInches = document.getElementById("height-inches").value;
+            var userWeight = document.getElementById("weight").value;
+            var userActivity = document.getElementById("activity").value;
+            var userMeals = document.getElementById("meals").value;
+            var userSnacks = document.getElementById("snacks").value;
+            var userCuisines = document.getElementById("cuisines").value;
+            var userRestrictions = document.getElementById("restrictions").value;
+            var userDislike = document.getElementById("dislike").value;
+            var userGoals = document.getElementById("goals").value;
+
+            var message = "I am " + userAge + " years old. My gender is " + userGender + ". I am " + userHeightFeet + " feet " + userHeightInches + " inches tall and weigh " + userWeight + " pounds. I have a " + userActivity + " level of physical activity. I prefer to have " + userMeals + " meals and " + userSnacks + " snacks in a day. Some of my favorite cuisines are " + userCuisines + ". Food that I cannot eat include " + userRestrictions + ", " + userDislike + ". My goal is to " + userGoals + ". Please suggest a appropriate meal plan for me throughout the seven days of the week with the measurements of every food. Please just provide the meal plan.";
+
+            console.log(message)
+            $.ajax({
+                type: "POST",
+                url: "/advice",
+                data: JSON.stringify({ "message": message }),
+                contentType: "application/json",
+                success: function (response) {
+                    displayMessage(response.message);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error sending message:", error);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
